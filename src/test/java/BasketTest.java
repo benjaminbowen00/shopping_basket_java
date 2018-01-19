@@ -1,5 +1,6 @@
 import basket.Basket;
 import basket.Item;
+import discount.Bogof;
 import discount.HighSpendDiscount;
 import discount.LoyaltyDiscount;
 import org.junit.Before;
@@ -15,12 +16,14 @@ public class BasketTest {
     Item item2;
     LoyaltyDiscount loyaltyDiscount;
     HighSpendDiscount highSpendDiscount;
+    Bogof bogof;
 
     @Before
     public void before(){
         basket = new Basket();
         loyaltyDiscount = new LoyaltyDiscount();
         highSpendDiscount = new HighSpendDiscount();
+        bogof = new Bogof();
         item1 = new Item("TV", 500.0);
         item2 = new Item("DVD", 10.0);
         basket.addItem(item1);
@@ -65,7 +68,31 @@ public class BasketTest {
     public void canApplyHighSpendDiscount(){
         basket.addDiscount(highSpendDiscount);
         basket.applyDiscounts();
-        assertEquals();
+        assertEquals(459.0, basket.getTotal(), 0.01);
+    }
+
+    @Test
+    public void canApplyBogofNoRepeats(){
+        basket.addDiscount(bogof);
+        basket.applyDiscounts();
+        assertEquals(510.0, basket.getTotal(), 0.01);
+    }
+
+    @Test
+    public void canApplyBogofTwoDvds(){
+        basket.addItem(item2);
+        basket.addDiscount(bogof);
+        basket.applyDiscounts();
+        assertEquals(510.0, basket.getTotal(), 0.01);
+    }
+
+    @Test
+    public void canApplyBogofThreeDvds(){
+        basket.addItem(item2);
+        basket.addItem(item2);
+        basket.addDiscount(bogof);
+        basket.applyDiscounts();
+        assertEquals(520.0, basket.getTotal(), 0.01);
     }
 
 
