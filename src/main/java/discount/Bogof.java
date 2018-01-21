@@ -19,16 +19,17 @@ public class Bogof implements IDiscount {
 
 
 
+//alternative approach using hashmap
 
-    public HashMap<Item, Integer> countItemFrequencies(ArrayList<Item> items) {
-        HashMap<Item, Integer> itemFrequencies = new HashMap<>();
-        for (Item item : items) {
-            if (itemFrequencies.containsKey(item)) {
-                itemFrequencies.put(item, itemFrequencies.get(item) + 1);
-            } else {
-                itemFrequencies.put(item, itemFrequencies.get(item));
-            }
-        }
-        return itemFrequencies;
-    }
+//    public HashMap<Item, Integer> countItemFrequencies(ArrayList<Item> items) {
+//        HashMap<Item, Integer> itemFrequencies = new HashMap<>();
+//        for (Item item : items) {
+//            if (itemFrequencies.containsKey(item)) {
+//                itemFrequencies.put(item, itemFrequencies.get(item) + 1);
+//            } else {
+//                itemFrequencies.put(item, itemFrequencies.get(item));
+//            }
+//        }
+//        return itemFrequencies;
+//    }
 }

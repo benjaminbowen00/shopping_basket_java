@@ -9,12 +9,22 @@ public class Basket {
     private ArrayList<Item> items;
     private ArrayList<IDiscount> discounts;
     private double total;
+    private boolean discountsApplied;
 
 
     public Basket() {
         this.items = new ArrayList<>();
         this.discounts = new ArrayList<>();
         total = 0;
+        discountsApplied = false;
+    }
+
+    public boolean isDiscountsApplied() {
+        return discountsApplied;
+    }
+
+    public void setDiscountsApplied(boolean bool) {
+        this.discountsApplied = bool;
     }
 
     public int countItems(){
@@ -53,13 +63,16 @@ public class Basket {
         for (Item item : items){
             total += item.getPrice();
         }
+        this.discountsApplied = false;
         return total;
     }
 
     public void applyDiscounts(){
+        if(discountsApplied == false){
         for (IDiscount discount : discounts){
             setTotal(discount.applyDiscount(items, total));
         }
+        this.setDiscountsApplied(true);}
     }
 
 

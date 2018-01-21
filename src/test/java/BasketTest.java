@@ -57,6 +57,14 @@ public class BasketTest {
     }
 
     @Test
+    public void cantApplytLoyaltyDiscountTwice(){
+        basket.addDiscount(loyaltyDiscount);
+        basket.applyDiscounts();
+        basket.applyDiscounts();
+        assertEquals(499.80, basket.getTotal(), 0.01);
+    }
+
+    @Test
     public void noHighSpendDiscountLowTotal(){
         basket.removeItem(item1);
         basket.addDiscount(highSpendDiscount);
@@ -93,6 +101,16 @@ public class BasketTest {
         basket.addDiscount(bogof);
         basket.applyDiscounts();
         assertEquals(520.0, basket.getTotal(), 0.01);
+    }
+
+    @Test
+    public void canApplyBogofAndLoyaltyDiscount(){
+        basket.addItem(item2);
+        basket.addItem(item2);
+        basket.addDiscount(bogof);
+        basket.addDiscount(loyaltyDiscount);
+        basket.applyDiscounts();
+        assertEquals(509.60, basket.getTotal(), 0.01);
     }
 
 
