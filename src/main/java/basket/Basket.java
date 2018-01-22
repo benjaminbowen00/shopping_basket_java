@@ -38,12 +38,12 @@ public class Basket {
 
     public void removeItem(Item item){
         this.items.remove(item);
-        this.total -= item.getPrice();
+        recalculateTotalNoDiscounts();
     }
 
     public void addItem(Item item){
         this.items.add(item);
-        this.total += item.getPrice();
+        recalculateTotalNoDiscounts();
     }
 
     public void addDiscount(IDiscount discount){
@@ -58,13 +58,13 @@ public class Basket {
         this.total = total;
     }
 
-    public double recalculateTotalNoDiscounts(){
+    public void recalculateTotalNoDiscounts(){
         double total = 0;
         for (Item item : items){
             total += item.getPrice();
         }
         this.discountsApplied = false;
-        return total;
+        this.setTotal(total);
     }
 
     public void applyDiscounts(){

@@ -9,12 +9,24 @@ public class Bogof implements IDiscount {
     @Override
     public double applyDiscount(ArrayList<Item> items, double total) {
 
-        Set<Item> itemSet = new HashSet(items);
+        ArrayList<Item> bogofItems = getBogofItems(items);
+
+
+        Set<Item> itemSet = new HashSet(bogofItems);
+
         for(Item item: itemSet){
             int itemFreqeuncy = Collections.frequency(items, item);
             total -= (itemFreqeuncy/2) * item.getPrice();
         }
         return total;
+    }
+
+    public ArrayList<Item> getBogofItems(ArrayList<Item> items){
+        ArrayList<Item> bogofItems = new ArrayList<>();
+        for(Item item : items){
+            if(item.getBogof()==true){bogofItems.add(item);}
+        }
+        return bogofItems;
     }
 
 

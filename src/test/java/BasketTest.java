@@ -57,6 +57,13 @@ public class BasketTest {
     }
 
     @Test
+    public void canSetBoolDiscountApplied(){
+        basket.addDiscount(loyaltyDiscount);
+        basket.applyDiscounts();
+        assertEquals(true, basket.isDiscountsApplied());
+    }
+
+    @Test
     public void cantApplytLoyaltyDiscountTwice(){
         basket.addDiscount(loyaltyDiscount);
         basket.applyDiscounts();
@@ -88,6 +95,7 @@ public class BasketTest {
 
     @Test
     public void canApplyBogofTwoDvds(){
+        item2.setBogof(true);
         basket.addItem(item2);
         basket.addDiscount(bogof);
         basket.applyDiscounts();
@@ -98,6 +106,7 @@ public class BasketTest {
     public void canApplyBogofThreeDvds(){
         basket.addItem(item2);
         basket.addItem(item2);
+        item2.setBogof(true);
         basket.addDiscount(bogof);
         basket.applyDiscounts();
         assertEquals(520.0, basket.getTotal(), 0.01);
@@ -105,6 +114,7 @@ public class BasketTest {
 
     @Test
     public void canApplyBogofAndLoyaltyDiscount(){
+        item2.setBogof(true);
         basket.addItem(item2);
         basket.addItem(item2);
         basket.addDiscount(bogof);
@@ -112,6 +122,19 @@ public class BasketTest {
         basket.applyDiscounts();
         assertEquals(509.60, basket.getTotal(), 0.01);
     }
+
+
+    @Test
+    public void canResetDiscounts(){
+        basket.addItem(item2);
+        basket.addItem(item2);
+        basket.addDiscount(bogof);
+        basket.addDiscount(loyaltyDiscount);
+        basket.applyDiscounts();
+        basket.recalculateTotalNoDiscounts();
+        assertEquals(530, basket.getTotal(), 0.01);
+    }
+
 
 
 
